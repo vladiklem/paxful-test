@@ -2,6 +2,7 @@ import createReducer from '../create-reducer';
 import { ADD_MESSAGE, DELETE_TRADE, READ_MESSAGE } from './constants';
 import { InitialStateT, State, TradeItemT } from './reducer.types';
 import { AddMessageAction, DeleteTradeAction, ReadMessageAction } from './action.types';
+import { mockedTradePart } from '../../data/trades';
 
 const initialState: InitialStateT = [
   {
@@ -10,33 +11,7 @@ const initialState: InitialStateT = [
     paymentMethod: 'Amazon Gift Card',
     amount: 30,
     paid: true,
-    buyer: {
-      id: '13',
-      username: 'Chanaaar',
-      avatarUrl: 'avatar-1.png',
-      newMessages: false,
-      rating: {
-        plus: 37,
-        minus: 1
-      }
-    },
-    seller: {
-      id: '17',
-      username: 'Lora',
-      avatarUrl: 'avatar-2.png',
-      newMessages: false,
-      rating: {
-        plus: 42,
-        minus: 23
-      }
-    },
-    chatHistory: [
-      {
-        ts: Date.now(),
-        text: 'Lorem ipsum',
-        senderId: '13',
-      }
-    ]
+    ...mockedTradePart
   },
   {
     id: '2',
@@ -44,33 +19,7 @@ const initialState: InitialStateT = [
     paymentMethod: 'iTunes Gift Card',
     amount: 15,
     paid: false,
-    buyer: {
-      id: '13',
-      username: 'Chanaaar',
-      avatarUrl: 'avatar-1.png',
-      newMessages: false,
-      rating: {
-        plus: 37,
-        minus: 1
-      }
-    },
-    seller: {
-      id: '17',
-      username: 'Lora',
-      avatarUrl: 'avatar-2.png',
-      newMessages: false,
-      rating: {
-        plus: 42,
-        minus: 23
-      }
-    },
-    chatHistory: [
-      {
-        ts: Date.now(),
-        text: 'kek lol',
-        senderId: '13',
-      }
-    ]
+    ...mockedTradePart,
   },
 ];
 
@@ -99,16 +48,14 @@ const handlers = {
     ...state.filter((trade: TradeItemT) => trade.id !== action.payload.tradeId)
   ]),
   [READ_MESSAGE]: (state: State, action: ReadMessageAction) => ([
-    ...state.reduce((accum: TradeItemT[], item: TradeItemT) =>
-      item.id === action.payload.tradeId
-        ? [
-            ...accum,
-            {
-              ...item,
-              [action.payload.mode]: { ...item[action.payload.mode], newMessages: false },
-            }
-          ]
-        : [ ...accum, item ], [])
+    ...state.map(
+      (item: TradeItemT) => item.id === action.payload.tradeId
+        ? {
+            ...item,
+            [action.payload.mode]: { ...item[action.payload.mode], newMessages: false }
+          }
+        : item
+    )
   ]),
 };
 
