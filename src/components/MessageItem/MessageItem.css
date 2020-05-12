@@ -1,0 +1,7 @@
+.message-item {
+  background-color: aquamarine;
+}
+
+.message-item--sender {
+  background-color: brown;
+}

@@ -1,0 +1,31 @@
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+}
+
+.chat-panel__top-bar {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  padding: 20px;
+}
+
+.chat-panel__delete {
+  position: absolute;
+  left: 0;
+  /* top: 50%; */
+}
+
+.chat-panel__info-user {
+  display: flex;
+  justify-content: center;
+}
+
+.chat-panel__history {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  background-color: blueviolet;
+}

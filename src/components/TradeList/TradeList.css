@@ -1,0 +1,7 @@
+.trade-list {
+  display: flex;
+}
+
+.trade-list__list {
+  width: 100%;
+}
