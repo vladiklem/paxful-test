@@ -1,22 +1,30 @@
 .trade-item {
   position: relative;
+  border-bottom-width: 1px;
+  border-bottom-color: #f5f5f5;
 }
 
 .trade-item--selected {
   background-color: #f6f7fb;
 }
 
+.trade-item__link {
+  text-decoration: none;
+}
+
 .trade-item__wrapper {
   display: flex;
   justify-content: space-between;
+  /* flex-wrap: wrap; */
   align-items: center;
   padding: 20px;
+  padding-left: 30px;
 }
 
 .trade-item__indicator {
   position: absolute;
   top: 27px;
-  left: 7px;
+  left: 13px;
   width: 7px;
   height: 7px;
   border-radius: 10px;
@@ -33,7 +41,8 @@
 
 .trade-item__method {
   font-size: 16px;
-  margin-top: 10px;
+  margin-top: 5px;
+  color: black;
 }
 
 .trade-item__amount {
@@ -47,20 +56,34 @@
   align-items: center;
 }
 
-.trade-item__status--paid {
+.trade-item__status {
+  margin-top: 5px;
   text-align: center;
+  font-size: 12px;
   font-weight: bold;
-  color: greenyellow;
+}
+
+.trade-item__status--paid {
+  color: #59c589;
 }
 
 .trade-item__status--not-paid {
-  font-size: 12px;
+  color: #a7a7a7;
+}
+
+.trade-item__username {
+  color: #A7A7A7;
+  font-weight: bold;
 }
 
 .trade-item__avatar {
   height: 40px;
   width: 40px;
   border-radius: 40px;
+}
+
+.trade-item__amount {
+  color: #A7A7A7;
 }
 
 .trade_item__status--small {

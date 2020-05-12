@@ -1,17 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Redirect } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
+import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles} from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
+import Header from '../../components/Header/Header';
 import TradesList from '../../components/TradeList/TradeList';
 import TradeInfo from '../../components/TradeInfo/TradeInfo';
 import ChatPanel from '../../components/ChatPanel/ChatPanel';
@@ -19,43 +17,35 @@ import { addMessage, deleteTrade, readMessage } from '../../store/trades/actions
 import { setMode } from '../../store/user/actions';
 import { getOpposite } from '../../utils';
 import { AppState } from '../../store/reducer.types';
-import { TradeItem } from '../../store/trades/reducer.types';
+import { TradeItemT } from '../../store/trades/reducer.types';
 import './Trades.css';
 
-// const infoDrawerWidth = '25.965%';
 const listDrawerWidth = '27.25%';
+const listPanelWidth = '50%';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: listDrawerWidth,
       flexShrink: 0,
     },
   },
-  header: {
-    width: '100%',
-    textAlign: 'center',
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-  },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
-  tradeInfoButton: {
-    marginLeft: 'auto',
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    }
-  },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: listDrawerWidth
+    [theme.breakpoints.up('md')]: {
+      width: listDrawerWidth
+    },
+    [theme.breakpoints.down('sm')]: {
+      width: listPanelWidth
+    },
   },
   content: {
     flexGrow: 1,
@@ -75,8 +65,8 @@ const Trades = () => {
   const [listOpen, setListOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
   const [messageText, setMessageText] = useState('');
-  const idExist = trades.some((trade: TradeItem) => trade.id === id);
-  const currentTrade = trades.find((trade: TradeItem) => trade.id === id) || trades[0];
+  const idExist = trades.some((trade: TradeItemT) => trade.id === id);
+  const currentTrade = trades.find((trade: TradeItemT) => trade.id === id) || trades[0];
 
   const handleInfoToggle= useCallback(() => {
     setInfoOpen(!infoOpen)
@@ -92,8 +82,9 @@ const Trades = () => {
       messageText,
       userId,
       getOpposite(mode)
-    ))
-  }, [dispatch, messageText, userId, mode]);
+    ));
+    setMessageText('');
+  }, [dispatch, setMessageText, messageText, userId, mode]);
 
   const onDeleteTrade = useCallback((tradeId: string) => {
     if (trades.length > 1) {
@@ -116,36 +107,14 @@ const Trades = () => {
   }
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="Open trade list"
-            edge="start"
-            onClick={handleListToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.header} variant="h6" noWrap>
-            Paxful test
-          </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="Open trade info"
-            edge="start"
-            onClick={handleInfoToggle}
-            className={classes.tradeInfoButton}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-      
-      <div className={classes.drawer}>
-        <Hidden smUp implementation="css">
+      <Header
+        handleInfoToggle={handleInfoToggle}
+        handleListToggle={handleListToggle}
+      />
+      <Box component="nav" className={classes.drawer}>
+        <Hidden mdUp implementation="css">
           <Drawer
             variant="temporary"
             anchor="left"
@@ -169,7 +138,7 @@ const Trades = () => {
             />
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             className={classes.drawer}
             variant="permanent"
@@ -186,20 +155,21 @@ const Trades = () => {
             />
           </Drawer>  
         </Hidden>
-      </div>
+      </Box>
      
-      <div className={classes.content}>
+      <Box className={classes.content}>
         <ChatPanel
           onSendMessage={onSendMessage}
           onDeleteTrade={onDeleteTrade}
           trade={currentTrade}
+          messageText={messageText}
           setMessageText={setMessageText}
           userId={userId}
           mode={mode}
         />
-      </div>
-      <nav className={classes.drawer}>
-        <Hidden smUp implementation="css">
+      </Box>
+      <Box className={classes.drawer}>
+        <Hidden mdUp implementation="css">
           <Drawer
             variant="temporary"
             anchor="right"
@@ -218,10 +188,13 @@ const Trades = () => {
             >
               <CloseIcon/>
             </IconButton>
-            <TradeInfo onSwitchMode={onSwitchMode} />
+            <TradeInfo
+              trade={currentTrade}
+              mode={mode}
+              onSwitchMode={onSwitchMode} />
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation="css">
+        <Hidden smDown implementation="css">
           <Drawer
             className={classes.drawer}
             anchor="right"
@@ -231,11 +204,15 @@ const Trades = () => {
             }}
           >
             <div className={classes.toolbar} />
-            <TradeInfo onSwitchMode={onSwitchMode} />
+            <TradeInfo
+              trade={currentTrade}
+              onSwitchMode={onSwitchMode}
+              mode={mode}
+            />
           </Drawer>  
         </Hidden>
-      </nav>
-    </div>
+      </Box>
+    </Box>
   );
 }
 

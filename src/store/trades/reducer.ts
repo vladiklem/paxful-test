@@ -1,9 +1,9 @@
 import createReducer from '../create-reducer';
 import { ADD_MESSAGE, DELETE_TRADE, READ_MESSAGE } from './constants';
-import { InitialState, State, TradeItem } from './reducer.types';
+import { InitialStateT, State, TradeItemT } from './reducer.types';
 import { AddMessageAction, DeleteTradeAction, ReadMessageAction } from './action.types';
 
-const initialState: InitialState = [
+const initialState: InitialStateT = [
   {
     id: '1',
     hash: '45aFD3rR',
@@ -76,7 +76,7 @@ const initialState: InitialState = [
 
 const handlers = {
   [ADD_MESSAGE]: (state: State, action: AddMessageAction) => ([
-    ...state.reduce((accum: TradeItem[], item: any) =>
+    ...state.reduce((accum: TradeItemT[], item: TradeItemT) =>
       item.id === action.payload.tradeId
         ? [
             ...accum,
@@ -96,10 +96,10 @@ const handlers = {
         : [ ...accum, item ], [])
   ]),
   [DELETE_TRADE]: (state: State, action: DeleteTradeAction) => ([
-    ...state.filter(trade => trade.id !== action.payload.tradeId)
+    ...state.filter((trade: TradeItemT) => trade.id !== action.payload.tradeId)
   ]),
   [READ_MESSAGE]: (state: State, action: ReadMessageAction) => ([
-    ...state.reduce((accum: TradeItem[], item: any) =>
+    ...state.reduce((accum: TradeItemT[], item: TradeItemT) =>
       item.id === action.payload.tradeId
         ? [
             ...accum,

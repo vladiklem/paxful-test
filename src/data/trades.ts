@@ -1,6 +1,6 @@
-import { TradeItem } from '../store/trades/reducer.types';
+import { TradeItemT } from '../store/trades/reducer.types';
 
-export const selectTradeList = (mode: string): TradeItem[] => {
+export const selectTradeList = (mode: string): TradeItemT[] => {
   const tradeListsDB: any = {
     buyer: [
       {

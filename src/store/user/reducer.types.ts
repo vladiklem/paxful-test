@@ -1,19 +1,24 @@
-export type Rating = {
+export type RatingT = {
   plus: number;
   minus: number;
 }
 
-export type User = {
+export type UserT = {
   id: string;
   username: string;
-  rating: Rating;
+  rating?: RatingT;
+  mode?: string;
   avatarUrl?: string;
 }
 
-export type Account = {
+export type UserModeObj = {
+  [key: string]: UserT;
+}
+
+export type AccountT = {
   mode: string;
 }
 
-export type InitialState = User & Account;
+export type InitialState = UserT & AccountT;
 
 export type State = InitialState

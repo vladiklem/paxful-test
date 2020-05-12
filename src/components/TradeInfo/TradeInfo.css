@@ -1,3 +1,46 @@
 .trade-info {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trade-info__general {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trade-info__table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+
+.trade-info__tr {
+  display: flex;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.trade-info__tr:last-child {
+  border-bottom: 0;
+}
+
+.trade-info__th {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  padding: 20px;
+  border-right: 1px solid #dbdbdb;
+}
+
+.trade-info__th:last-child {
+  border-right: 0;
+}
+
+.trade-info__avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
 }
