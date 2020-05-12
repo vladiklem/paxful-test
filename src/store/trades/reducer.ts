@@ -21,28 +21,34 @@ const initialState: InitialStateT = [
     paid: false,
     ...mockedTradePart,
   },
+  {
+    id: '3',
+    hash: '38jLd9',
+    paymentMethod: 'Google Gift Card',
+    amount: 57,
+    paid: false,
+    ...mockedTradePart,
+  }
 ];
 
 const handlers = {
   [ADD_MESSAGE]: (state: State, action: AddMessageAction) => ([
-    ...state.reduce((accum: TradeItemT[], item: TradeItemT) =>
-      item.id === action.payload.tradeId
-        ? [
-            ...accum,
-            {
-              ...item,
-              [action.payload.mode]: { ...item[action.payload.mode], newMessages: true },
-              chatHistory: [
-                ...item.chatHistory,
-                {
-                  ts: Date.now(),
-                  text: action.payload.text,
-                  senderId: action.payload.senderId
-                }
-              ]
-            }
-          ]
-        : [ ...accum, item ], [])
+    ...state.map(
+      (item: TradeItemT) => item.id === action.payload.tradeId
+        ? {
+            ...item,
+            [action.payload.mode]: { ...item[action.payload.mode], newMessages: true },
+            chatHistory: [
+              ...item.chatHistory,
+              {
+                ts: Date.now(),
+                text: action.payload.text,
+                senderId: action.payload.senderId
+              }
+            ]
+          }
+        : item
+    )
   ]),
   [DELETE_TRADE]: (state: State, action: DeleteTradeAction) => ([
     ...state.filter((trade: TradeItemT) => trade.id !== action.payload.tradeId)
