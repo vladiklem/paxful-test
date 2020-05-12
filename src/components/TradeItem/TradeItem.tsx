@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getOpposite } from '../../utils';
+import { getOpposite, getStatus } from '../../utils';
 import { Props } from './TradeItem.types';
 import './TradeItem.css';
 
@@ -47,7 +47,7 @@ const TradeItem = ({ trade, selected, mode, onReadMessage }: Props) => {
               trade-item__status
               trade-item__status--${paid ? 'paid' : 'not-paid'}
             `}>
-              {paid ? 'PAID' : 'NOT PAID'}
+              {getStatus(paid)}
             </p>
           </div>
         </div>

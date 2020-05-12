@@ -1,11 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import MainContainer from './containers/MainContainer/MainContainer';
-import { store } from './store';
+import MainContainer from '../MainContainer/MainContainer';
+import { store } from '../../store';
 
-import './styles/normalize.css';
-import './styles/general.css';
+import '../../styles/normalize.css';
+import '../../styles/general.css';
 import './App.css';
 
 function App() {

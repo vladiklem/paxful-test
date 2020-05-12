@@ -4,9 +4,10 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MessageItem from '../../components/MessageItem/MessageItem';
-import { getOpposite } from '../../utils';
-import { Props } from './ChatPanel.types';
 import { MessageItemT } from '../../store/trades/reducer.types';
+import { getOpposite } from '../../utils';
+import { ENTER_KEY } from '../../constants';
+import { Props } from './ChatPanel.types';
 import './ChatPanel.css';
 
 const useStyles = makeStyles(() => ({
@@ -34,6 +35,8 @@ const ChatPanel = ({
   const { avatarUrl: currentUserAvatar } = trade[mode];
   const { username, rating, avatarUrl } = trade[getOpposite(mode)];
   const onClickSend = () => messageText && onSendMessage(id);
+  const onKeyPressed = (e: React.KeyboardEvent<HTMLInputElement>) =>
+    e.key === ENTER_KEY && messageText && onSendMessage(id);
   const onClickDelete = () => onDeleteTrade(id);
   const classes = useStyles();
 
@@ -78,6 +81,7 @@ const ChatPanel = ({
             ) => setMessageText(event.target.value)
           }
           value={messageText}
+          onKeyPress={onKeyPressed}
         />
         <Button onClick={onClickSend} variant="contained" color="primary">
           Send

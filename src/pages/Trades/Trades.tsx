@@ -57,14 +57,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Trades = () => {
+  const [listOpen, setListOpen] = useState<boolean>(false);
+  const [infoOpen, setInfoOpen] = useState<boolean>(false);
+  const [messageText, setMessageText] = useState<string>('');
+  const dispatch = useDispatch();
   const trades = useSelector((state: AppState) => state.trades);
   const { id: userId, mode } = useSelector((state: AppState) => state.user);
-  const dispatch = useDispatch();
   const { id } = useParams();
   const classes = useStyles();
-  const [listOpen, setListOpen] = useState(false);
-  const [infoOpen, setInfoOpen] = useState(false);
-  const [messageText, setMessageText] = useState('');
   const idExist = trades.some((trade: TradeItemT) => trade.id === id);
   const currentTrade = trades.find((trade: TradeItemT) => trade.id === id) || trades[0];
 

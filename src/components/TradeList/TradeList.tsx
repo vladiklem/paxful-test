@@ -4,8 +4,7 @@ import TradeItem from '../TradeItem/TradeItem';
 import { Props } from './TradeList.types';
 import './TradeList.css';
 
-const TradeList = (props: Props) => {
-  const { list, mode, selectedId, onReadMessage } = props;
+const TradeList = ({ list, mode, selectedId, onReadMessage }: Props) => {
   return (
     <div className="trade-list">
       <ul className="trade-list__list">
