@@ -8,3 +8,5 @@ export const getStatus = (paid: boolean): string =>
 
 export const getRandomTime = (min: number, max: number) =>
   Math.random() * (max - min) + min;
+
+export const convertUSDtoBTC = (amount: number,rate: number) => (amount / rate).toFixed(8);

@@ -1,4 +1,4 @@
-import { UserT, UserModeObj } from '../store/user/reducer.types';
+import { UserT, UserModeObj } from 'store/user/reducer.types';
 
 export const selectUser = (mode: string): UserT => {
   const usersDB: UserModeObj = {

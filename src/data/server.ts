@@ -1,23 +1,25 @@
 import axios, { AxiosResponse } from 'axios';
 import useSWR from 'swr';
 
+import { BTCurl } from '../constants';
+
 import { BTCResponseT, BTCErrorT } from './server.types';
 
 const fetcher = (url: string) => {
-  axios
+  return axios
     .get(url)
     .then((response: AxiosResponse<BTCResponseT>) => response.data)
     .catch((e: BTCErrorT) => console.error(e));
 };
 
-export const useBTC = () => {
+export const useBTC = (time: number) => {
   return useSWR(
-    'api.coindesk.com/v1/bpi/currentprice/USD.json',
+    BTCurl,
     fetcher,
     {
       revalidateOnFocus: false,
       shouldRetryOnError: false,
-      refreshInterval: 60000,
+      refreshInterval: time,
     }
   );
 };

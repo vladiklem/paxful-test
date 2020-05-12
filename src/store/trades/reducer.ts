@@ -2,7 +2,7 @@ import createReducer from '../create-reducer';
 import { ADD_MESSAGE, DELETE_TRADE, READ_MESSAGE } from './constants';
 import { InitialStateT, State, TradeItemT } from './reducer.types';
 import { AddMessageAction, DeleteTradeAction, ReadMessageAction } from './action.types';
-import { mockedTradePart } from '../../data/trades';
+import { mockedTradePart } from 'data/trades';
 
 const initialState: InitialStateT = [
   {

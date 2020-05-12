@@ -1,4 +1,4 @@
-import { TradeItemT } from '../../store/trades/reducer.types';
+import { TradeItemT } from 'store/trades/reducer.types';
 
 export type Props = {
   trade: TradeItemT;

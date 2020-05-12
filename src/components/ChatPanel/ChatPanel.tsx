@@ -1,10 +1,12 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 import { makeStyles } from '@material-ui/core/styles';
 
-import MessageItem from '../../components/MessageItem/MessageItem';
-import { MessageItemT } from '../../store/trades/reducer.types';
+import MessageItem from 'components/MessageItem/MessageItem';
+import { MessageItemT } from 'store/trades/reducer.types';
 import { getOpposite } from '../../utils';
 import { ENTER_KEY } from '../../constants';
 import { Props } from './ChatPanel.types';
@@ -14,7 +16,7 @@ const useStyles = makeStyles(() => ({
  deleteButton: {
    position: 'absolute',
    left: 0,
-   top: '30%',
+   top: '25%',
  },
  messageInput: {
    flexGrow: 1,
@@ -43,14 +45,12 @@ const ChatPanel = ({
   return (
     <div className="chat-panel">
       <div className="chat-panel__top-bar">
-        <Button
-          className={classes.deleteButton}
+        <IconButton
           onClick={onClickDelete}
-          variant="contained"
-          color="primary"
+          className={classes.deleteButton}
         >
-          delete
-        </Button>
+          <DeleteIcon />
+        </IconButton>
         <div className="chat-panel__info">
           <h2 className="chat-panel__info-method">{paymentMethod}</h2>
           <div className="chat-panel__info-user">

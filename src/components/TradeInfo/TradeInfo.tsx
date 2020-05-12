@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 
-import { getOpposite, getRandomTime, getStatus } from '../../utils';
-import { useBTC } from '../../data/server';
+import {
+  getOpposite,
+  getRandomTime,
+  getStatus,
+  convertUSDtoBTC
+} from '../../utils';
+import { useBTC } from 'data/server';
 import { Props } from './TradeInfo.types';
 import './TradeInfo.css';
 
 const TradeInfo = ({ onSwitchMode, trade, mode }: Props) => {
-  const [time, setTime] = useState(0);
+  const [time, setTime] = useState<number>(0);
   const { username, avatarUrl, rating } = trade[getOpposite(mode)]
   const { paid, hash, amount } = trade;
-  const { data, error } = useBTC();
+  const { data, error } = useBTC(time);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -21,8 +26,6 @@ const TradeInfo = ({ onSwitchMode, trade, mode }: Props) => {
       clearTimeout(timeout);
     }
   }, [time]);
-
-  console.log(data);
 
   return (
     <div className="trade-info">
@@ -77,12 +80,19 @@ const TradeInfo = ({ onSwitchMode, trade, mode }: Props) => {
           <div className="trade-info__th">
             <div className="trade-info__column">
               <p>AMOUNT BTC</p>
-              <p>{amount}</p>
+              <p>{data ? convertUSDtoBTC(amount, data.bpi.USD.rate_float) : '-'}</p>
             </div>
           </div>
         </div>
       </div>
-
+      <div>
+        <h3>currency rate</h3>
+        {(error || !data) ? (
+          <p>Some error was occured, please try later.</p>
+        ) : (
+         <p>{`1 BTC = ${data.bpi.USD.rate} USD`}</p>
+        )}
+      </div>
       <Button onClick={onSwitchMode} variant="contained" color="primary">
         Switch mode
       </Button>

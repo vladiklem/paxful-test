@@ -9,26 +9,24 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Header from '../../components/Header/Header';
-import TradesList from '../../components/TradeList/TradeList';
-import TradeInfo from '../../components/TradeInfo/TradeInfo';
-import ChatPanel from '../../components/ChatPanel/ChatPanel';
-import { addMessage, deleteTrade, readMessage } from '../../store/trades/actions';
-import { setMode } from '../../store/user/actions';
+import Header from 'components/Header/Header';
+import TradesList from 'components/TradeList/TradeList';
+import TradeInfo from 'components/TradeInfo/TradeInfo';
+import ChatPanel from 'components/ChatPanel/ChatPanel';
+import { addMessage, deleteTrade, readMessage } from 'store/trades/actions';
+import { setMode } from 'store/user/actions';
+import { AppState } from 'store/reducer.types';
+import { TradeItemT } from 'store/trades/reducer.types';
 import { getOpposite } from '../../utils';
-import { AppState } from '../../store/reducer.types';
-import { TradeItemT } from '../../store/trades/reducer.types';
 import './Trades.css';
 
-const listDrawerWidth = '27.25%';
-const listPanelWidth = '50%';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
   drawer: {
     [theme.breakpoints.up('md')]: {
-      width: listDrawerWidth,
+      width: '28%',
       flexShrink: 0,
     },
   },
@@ -41,10 +39,13 @@ const useStyles = makeStyles(theme => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     [theme.breakpoints.up('md')]: {
-      width: listDrawerWidth
+      width: '28%',
     },
-    [theme.breakpoints.down('sm')]: {
-      width: listPanelWidth
+    [theme.breakpoints.only ('sm')]: {
+      width: '50%',
+    },
+    [theme.breakpoints.down ('xs')]: {
+      width: '100%'
     },
   },
   content: {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom';
 
-import Trades from '../../pages/Trades/Trades';
+import Trades from 'pages/Trades/Trades';
 import './MainRouter.css';
 
 const MainRouter = () => {

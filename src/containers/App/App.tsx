@@ -1,18 +1,18 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
-import MainContainer from '../MainContainer/MainContainer';
+import MainRouter from 'containers/MainRouter/MainRouter';
 import { store } from '../../store';
 
-import '../../styles/normalize.css';
-import '../../styles/general.css';
+import 'styles/normalize.css';
+import 'styles/general.css';
 import './App.css';
 
 function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <MainContainer />
+        <MainRouter />
       </Provider>
     </div>
   );

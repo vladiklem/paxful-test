@@ -1,6 +1,6 @@
 import createReducer from '../create-reducer';
 
-import { selectUser } from '../../data/users';
+import { selectUser } from 'data/users';
 import { SET_MODE } from './constants';
 import { SetModeAction } from './actions.types';
 import { InitialState, State } from './reducer.types';
