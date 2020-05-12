@@ -1,0 +1,39 @@
+.chat-panel {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+  background-color: #f6f7fb;
+}
+
+.chat-panel__top-bar {
+  display: flex;
+  justify-content: center;
+  width: calc(100% - 40px);
+  position: relative;
+  padding: 20px 0;
+  margin: 0 20px;
+  border-bottom: 1px solid #dbdbdb;
+}
+
+.chat-panel__delete {
+  position: absolute;
+  left: 0;
+}
+
+.chat-panel__info-user {
+  display: flex;
+  justify-content: center;
+}
+
+.chat-panel__history {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: scroll;
+}
+
+.chat-panel__send-panel {
+  display: flex;
+  padding: 20px;
+}

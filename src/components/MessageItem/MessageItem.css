@@ -1,0 +1,31 @@
+.message-item {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.message-item--current-user {
+  flex-direction: row-reverse;
+}
+
+.message-item__text-wrapper {
+  flex-grow: 1;
+  padding: 10px;
+  margin-right: 15px;
+  border-radius: 5px;
+  background-color: #5c7393;
+  color: white;
+}
+
+.message-item__text-wrapper--current-user {
+  margin-left: 15px;
+  margin-right: 0;
+  background-color: white;
+  border: 1px solid #dbdbdb;
+  color: black;
+}
+
+.message-item__sender-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+}
