@@ -7,12 +7,11 @@ export type UserT = {
   id: string;
   username: string;
   rating?: RatingT;
-  mode?: string;
   avatarUrl?: string;
 }
 
 export type UserModeObj = {
-  [key: string]: UserT;
+  [key: string]: UserT & AccountT;
 }
 
 export type AccountT = {

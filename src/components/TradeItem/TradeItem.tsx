@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getOpposite } from '../../utils';
@@ -9,9 +9,12 @@ const TradeItem = ({ trade, selected, mode, onReadMessage }: Props) => {
   const { id, paymentMethod, amount, paid } = trade;
   const { newMessages } = trade[mode];
   const { username, avatarUrl } = trade[getOpposite(mode)];
-  if (newMessages && selected) {
-    onReadMessage(id);
-  }
+
+  useEffect(() => {
+    if (newMessages && selected) {
+      onReadMessage(id);
+    }
+  }, [newMessages, selected, id, onReadMessage]);
   
   return (
     <li className={`trade-item ${selected && 'trade-item--selected'}`}>
