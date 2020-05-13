@@ -8,6 +8,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 20px;
+}
+
+.trade-info__with {
+  padding-bottom: 10px;
+  font-weight: bold;
+}
+
+.trade-info__started {
+  padding-bottom: 20px;
+}
+
+.trade-info__title {
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 .trade-info__table {
@@ -50,4 +65,16 @@
   width: 30px;
   height: 30px;
   border-radius: 30px;
+  margin-bottom: 5px;
+}
+
+.trade-info__btc {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.trade-info__rate {
+  margin-bottom: 10px;
 }

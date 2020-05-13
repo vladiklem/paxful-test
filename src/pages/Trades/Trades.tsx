@@ -2,15 +2,12 @@ import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, Redirect } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import { makeStyles } from '@material-ui/core/styles';
 
+import DrawerPanel from './components/DrawerPanel/DrawerPanel';
 import Header from 'components/Header/Header';
-import TradesList from 'components/TradeList/TradeList';
+import TradeList from 'components/TradeList/TradeList';
 import TradeInfo from 'components/TradeInfo/TradeInfo';
 import ChatPanel from 'components/ChatPanel/ChatPanel';
 import { addMessage, deleteTrade, readMessage } from 'store/trades/actions';
@@ -30,30 +27,8 @@ const useStyles = makeStyles(theme => ({
       flexShrink: 0,
     },
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
-  },
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    [theme.breakpoints.up('md')]: {
-      width: '28%',
-    },
-    [theme.breakpoints.only ('sm')]: {
-      width: '50%',
-    },
-    [theme.breakpoints.down ('xs')]: {
-      width: '100%'
-    },
-  },
   content: {
     flexGrow: 1,
-  },
-  closeMenuButton: {
-    marginRight: 'auto',
-    marginLeft: 0,
   },
 }));
 
@@ -115,47 +90,18 @@ const Trades = () => {
         handleListToggle={handleListToggle}
       />
       <Box component="nav" className={classes.drawer}>
-        <Hidden mdUp implementation="css">
-          <Drawer
-            variant="temporary"
-            anchor="left"
-            open={listOpen}
-            onClose={handleListToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true,
-            }}
-          >
-            <IconButton onClick={handleListToggle} className={classes.closeMenuButton}>
-              <CloseIcon/>
-            </IconButton>
-            <TradesList
-              mode={mode}
-              list={trades}
-              selectedId={id}
-              onReadMessage={onReadMessage}
-            />
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            className={classes.drawer}
-            variant="permanent"
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <div className={classes.toolbar} />
-            <TradesList
-              mode={mode}
-              list={trades}
-              selectedId={id}
-              onReadMessage={onReadMessage}
-            />
-          </Drawer>  
-        </Hidden>
+        <DrawerPanel
+          drawerOpen={listOpen}
+          handleToggle={handleListToggle}
+          PanelComponent={TradeList}
+          panelProps={{
+            mode,
+            list: trades,
+            selectedId: id,
+            onReadMessage: onReadMessage
+          }}
+          anchor="left"
+        />
       </Box>
      
       <Box className={classes.content}>
@@ -170,48 +116,17 @@ const Trades = () => {
         />
       </Box>
       <Box className={classes.drawer}>
-        <Hidden mdUp implementation="css">
-          <Drawer
-            variant="temporary"
-            anchor="right"
-            open={infoOpen}
-            onClose={handleInfoToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true,
-            }}
-          >
-            <IconButton
-              onClick={handleInfoToggle}
-              className={classes.closeMenuButton}
-            >
-              <CloseIcon/>
-            </IconButton>
-            <TradeInfo
-              trade={currentTrade}
-              mode={mode}
-              onSwitchMode={onSwitchMode} />
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            className={classes.drawer}
-            anchor="right"
-            variant="permanent"
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            <div className={classes.toolbar} />
-            <TradeInfo
-              trade={currentTrade}
-              onSwitchMode={onSwitchMode}
-              mode={mode}
-            />
-          </Drawer>  
-        </Hidden>
+        <DrawerPanel
+          drawerOpen={infoOpen}
+          handleToggle={handleInfoToggle}
+          PanelComponent={TradeInfo}
+          panelProps={{
+            trade: currentTrade,
+            mode,
+            onSwitchMode,
+          }}
+          anchor="right"
+        />
       </Box>
     </Box>
   );

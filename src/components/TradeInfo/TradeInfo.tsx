@@ -31,7 +31,7 @@ const TradeInfo = ({ onSwitchMode, trade, mode }: Props) => {
     <div className="trade-info">
       <div className="trade-info__general">
         <p className="trade-info__with">{`You are trading with ${username}`}</p>
-        <p>Started 23 min ago</p>
+        <p className="trade-info__started">Started 23 min ago</p>
         <Button variant="contained" color="primary">
           Release bitcoins
         </Button>
@@ -51,7 +51,7 @@ const TradeInfo = ({ onSwitchMode, trade, mode }: Props) => {
           </div>
           <div className="trade-info__th">
             <div className="trade-info__column">
-              <p># of trades</p>
+              <p className="trade-info__title"># of trades</p>
               <p>4</p>
             </div>
           </div>
@@ -59,13 +59,13 @@ const TradeInfo = ({ onSwitchMode, trade, mode }: Props) => {
         <div className="trade-info__tr">
           <div className="trade-info__th">
             <div className="trade-info__column">
-              <p>TRADE STATUS</p>
+              <p className="trade-info__title">TRADE STATUS</p>
               <p>{getStatus(paid).toUpperCase()}</p>
             </div>
           </div>
           <div className="trade-info__th">
             <div className="trade-info__column">
-              <p>TRADE HASH</p>
+              <p className="trade-info__title">TRADE HASH</p>
               <p>{hash}</p>
             </div>
           </div>
@@ -73,27 +73,31 @@ const TradeInfo = ({ onSwitchMode, trade, mode }: Props) => {
         <div className="trade-info__tr">
           <div className="trade-info__th">
             <div className="trade-info__column">
-              <p>AMOUN USD</p>
+              <p className="trade-info__title">AMOUN USD</p>
               <p>{amount}</p>
             </div>
           </div>
           <div className="trade-info__th">
             <div className="trade-info__column">
-              <p>AMOUNT BTC</p>
+              <p className="trade-info__title">AMOUNT BTC</p>
               <p>{data ? convertUSDtoBTC(amount, data.bpi.USD.rate_float) : '-'}</p>
             </div>
           </div>
         </div>
       </div>
-      <div>
-        <h3>currency rate</h3>
+      <div className="trade-info__btc">
+        <h3 className="trade-info__title">currency rate</h3>
         {(error || !data) ? (
-          <p>Some error was occured, please try later.</p>
+          <p className="trade-info__rate">Some error was occured, please try later.</p>
         ) : (
-         <p>{`1 BTC = ${data.bpi.USD.rate} USD`}</p>
+         <p className="trade-info__rate">{`1 BTC = ${data.bpi.USD.rate} USD`}</p>
         )}
       </div>
-      <Button onClick={onSwitchMode} variant="contained" color="primary">
+      <Button
+        onClick={onSwitchMode}
+        variant="contained"
+        color="primary"
+      >
         Switch mode
       </Button>
     </div>
